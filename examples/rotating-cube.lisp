@@ -49,18 +49,8 @@
      -0.5 -0.5 -0.5			;6
      -0.5 0.5 -0.5)))			;7
 
-(defvar *cube-colors*
-  (cffi:foreign-alloc
-   :float
-   :initial-contents
-   '(0.2 0.2 0.2			;0
-     0.3 0.3 0.3			;1
-     0.4 0.4 0.4			;2
-     0.5 0.5 0.5			;3
-     0.6 0.6 0.6			;4
-     0.7 0.7 0.7			;5
-     0.8 0.8 0.8			;6
-     0.9 0.9 0.9)))			;7
+;; happens to match quite nicely
+(defvar *cube-colors* *cube-positions*)
 
 (defvar *cube-indices*
   (cffi:foreign-alloc
@@ -156,7 +146,7 @@
     ;; has its own color
     (%gl:buffer-sub-data :array-buffer (* 24 4 3) (* 24 4 3) *cube-colors*)
     (%gl:enable-vertex-attrib-array 1)
-    (%gl:vertex-attrib-pointer 1 3 :float :false 0 0)
+    (%gl:vertex-attrib-pointer 1 3 :float :false 0 (* 24 4 3))
 
     ;;IBO
     (gl:bind-buffer :element-array-buffer ibo)
